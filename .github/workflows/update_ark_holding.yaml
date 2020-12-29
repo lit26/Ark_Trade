@@ -26,7 +26,7 @@ jobs:
 
       - name: Execute Python script
         run: |
-          python scripts/getHolding.py
+          python scripts/getTrades.py
       - name: setup git config
         run: |
           git config user.name ${{ secrets.USERNAME }}
