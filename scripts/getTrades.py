@@ -1,5 +1,5 @@
 import json
-from datetime import date
+# from datetime import date
 import pandas as pd
 import io
 import requests
@@ -25,7 +25,7 @@ def getHolding():
         df = df.append(df_temp)
     date = df['date'].values[0]
     date = date.replace('/','-')
-    # df.to_csv(f'ark_holding/Ark_holding_{date}.csv', index=False)
+    df.to_csv(f'ark_holding/Ark_holding_{date}.csv', index=False)
     return date, df
 
 def action(n):
@@ -75,7 +75,7 @@ if currentdate != latestdate:
     df_compare['No.'] = df_compare.index + 1
     df_compare[['No.', 'date', 'fund', 'company', 'ticker',
                 'holding', 'market value($)', 'weight(%)', 'action',
-                'shares', '% change']].to_csv(f'ark_trading/ARK_trade_{date}.csv', index=False)
+                'shares', '% change']].to_csv(f'ark_trading/Ark_trade_{date}.csv', index=False)
 
 
     latestfile = {"latest file": f'Ark_holding_{date}.csv'}
