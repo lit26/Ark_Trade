@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import io
 import requests
+import glob
 
 arkk_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv"
 arkq_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_AUTONOMOUS_TECHNOLOGY_&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv"
@@ -83,3 +84,18 @@ if currentdate != latestdate:
         json_file.write(json.dumps(latestfile, indent=4))
 else:
     print('No trading output')
+
+files = glob.glob('ark_trading/*.csv')
+files.sort(reverse=True)
+df = pd.read_csv(files[0])
+for i in range(1, len(files)):
+    df_temp = pd.read_csv(files[i])
+    df = df.append(df_temp)
+df_trades = df[df['action'] != 'Hold']
+df_trades[['date', 'fund', 'company', 'ticker','holding', 'market value($)',
+   'weight(%)', 'action', 'shares', '% change']].to_csv('trades.csv', index=False)
+df_hold = df[df['action'] == 'Hold']
+df_hold[['date', 'fund', 'company', 'ticker','holding', 'market value($)',
+   'weight(%)', 'action', 'shares', '% change']].to_csv('holdings.csv', index=False)
+
+
