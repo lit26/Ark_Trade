@@ -93,9 +93,9 @@ for i in range(1, len(files)):
     df = df.append(df_temp)
 df_trades = df[df['action'] != 'Hold']
 df_trades[['date', 'fund', 'company', 'ticker','holding', 'market value($)',
-   'weight(%)', 'action', 'shares', '% change']].to_csv('trades.csv', index=False)
+   'weight(%)', 'action', 'shares']].to_csv('trades.csv', index=False)
 df_hold = df[df['action'] == 'Hold']
 df_hold[['date', 'fund', 'company', 'ticker','holding', 'market value($)',
-   'weight(%)', 'action', 'shares', '% change']].to_csv('holdings.csv', index=False)
+   'weight(%)', '% change']].to_csv('holdings.csv', index=False)
 
 
