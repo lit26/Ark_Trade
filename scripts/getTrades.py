@@ -1,8 +1,9 @@
 import json
-# from datetime import date
+from datetime import datetime
 import pandas as pd
 import io
 import requests
+# import datetime
 import glob
 
 arkk_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv"
@@ -25,7 +26,8 @@ def getHolding():
         df_temp = pd.read_csv(io.StringIO(s.decode('utf-8'))).dropna()
         df = df.append(df_temp)
     date = df['date'].values[0]
-    date = date.replace('/','-')
+    date_object = datetime.strptime(date, '%m/%d/%Y').date()
+    date = date_object.strftime('%m-%d-%Y')
     df.to_csv(f'ark_holding/Ark_holding_{date}.csv', index=False)
     return date, df
 
@@ -85,8 +87,16 @@ if currentdate != latestdate:
 else:
     print('No trading output')
 
-files = glob.glob('ark_trading/*.csv')
-files.sort(reverse=True)
+def sortFiles():
+    files = glob.glob('ark_trading/*.csv')
+    dates = [i.split('_')[3].split('.')[0] for i in files]
+    dates = [datetime.strptime(i, '%m-%d-%Y').date() for i in dates]
+    dates.sort(reverse=True)
+    dates = [i.strftime('%m-%d-%Y') for i in dates]
+    files = [f'ark_trading/Ark_trade_{i}.csv' for i in dates]
+    return files
+
+files = sortFiles()
 df = pd.read_csv(files[0])
 for i in range(1, len(files)):
     df_temp = pd.read_csv(files[i])
