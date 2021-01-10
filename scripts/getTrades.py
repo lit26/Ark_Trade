@@ -64,7 +64,7 @@ def combineHolding(df_current):
     df2['date'] = pd.to_datetime(df2['date']).apply(lambda x: x.strftime('%Y-%m-%d'))
     df_history = df2.append(df_history)
     df_history = df_history.rename(columns={'shares': 'holding'})
-    df_history[['date', 'fund', 'company', 'ticker', 'cusip', 'holding', 'market value($)',
+    df_history[['date', 'fund', 'company', 'ticker', 'holding', 'market value($)',
                 'weight(%)']].to_csv('holdings.csv', index=False)
 
 def getTrades(currentdate, latestdate, latestfile, df_current):
