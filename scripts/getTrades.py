@@ -33,6 +33,7 @@ def getHolding():
     date_object = datetime.strptime(date, '%m/%d/%Y').date()
     date = date_object.strftime('%m-%d-%Y')
     df.to_csv(f'ark_holding/Ark_holding_{date}.csv', index=False)
+
     return date, df
 
 def action(n):
@@ -57,8 +58,21 @@ latestdate = latestfile.split('_')[2].split('.')[0]
 
 currentdate, df_current = getHolding()
 
+def combineHolding(df_current):
+    df_history = pd.read_csv('holdings.csv')
+    df2 = df_current
+    df2['date'] = pd.to_datetime(df2['date']).apply(lambda x: x.strftime('%Y-%m-%d'))
+    df_history = df2.append(df_history)
+    df_history = df_history.rename(columns={'shares': 'holding'})
+    df_history[['date', 'fund', 'company', 'ticker', 'cusip', 'holding', 'market value($)',
+                'weight(%)']].to_csv('holdings.csv', index=False)
+
 def getTrades(currentdate, latestdate, latestfile, df_current):
     if currentdate != latestdate:
+        # add to history
+        combineHolding(df_current)
+
+        # compare to previous
         df_prev = pd.read_csv(f'ark_holding/{latestfile}')
         df_compare = df_prev.merge(df_current,
                                    how='left',
@@ -96,12 +110,12 @@ def getTrades(currentdate, latestdate, latestfile, df_current):
         df_temp = df_temp.append(df_history)
         df_temp[['date', 'fund', 'company', 'ticker', 'holding', 'market value($)',
                  'weight(%)', 'action', 'shares']].to_csv('trades.csv', index=False)
-        df_history = pd.read_csv('holdings.csv')
-        df_temp = df_compare[df_compare['action'] == 'Hold']
-        df_temp['date'] = df_temp['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
-        df_temp = df_temp.append(df_history)
-        df_temp[['date', 'fund', 'company', 'ticker', 'holding', 'market value($)',
-                 'weight(%)', '% change']].to_csv('holdings.csv', index=False)
+        # df_history = pd.read_csv('holdings.csv')
+        # df_temp = df_compare[df_compare['action'] == 'Hold']
+        # df_temp['date'] = df_temp['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        # df_temp = df_temp.append(df_history)
+        # df_temp[['date', 'fund', 'company', 'ticker', 'holding', 'market value($)',
+        #          'weight(%)', '% change']].to_csv('holdings.csv', index=False)
         with open('scripts/info.json', 'w') as json_file:
             json_file.write(json.dumps(latestfile, indent=4))
 
@@ -134,6 +148,7 @@ def getStat(df):
             json.dump(stat, outfile)
 
 getTrades(currentdate, latestdate, latestfile, df_current)
+
 
 
 
