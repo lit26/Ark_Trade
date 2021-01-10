@@ -141,6 +141,9 @@ def getStat(df):
         stat['win_loss_ratio'] = qs.stats.win_loss_ratio(stock)
         stat['win_rate'] = qs.stats.win_rate(stock)
 
+        for key, val in stat.items():
+            stat[key] = round(val, 2)
+
         daily_return = list(stock.values)[1:]
         daily_return = [round(i * 100, 1) for i in daily_return]
         stat['daily_return'] = daily_return
