@@ -132,7 +132,7 @@ def getStat(df):
 
     for k, v in tickers.items():
         stat = {}
-        stock = qs.utils.download_returns(v, '1y')
+        stock = qs.utils.download_returns(v, '2y')
         stat['sharpe'] = qs.stats.sharpe(stock)
         stat['sortino'] = qs.stats.sortino(stock)
         stat['profit_factor'] = qs.stats.profit_factor(stock)
