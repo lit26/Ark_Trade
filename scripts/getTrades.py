@@ -62,8 +62,8 @@ def combineHolding(df_current):
     df_history = pd.read_csv('holdings.csv')
     df2 = df_current
     df2['date'] = pd.to_datetime(df2['date']).apply(lambda x: x.strftime('%Y-%m-%d'))
+    df2 = df2.rename(columns={'shares': 'holding'})
     df_history = df2.append(df_history)
-    df_history = df_history.rename(columns={'shares': 'holding'})
     df_history[['date', 'fund', 'company', 'ticker', 'holding', 'market value($)',
                 'weight(%)']].to_csv('holdings.csv', index=False)
 
