@@ -27,13 +27,15 @@ ticker_dict = {'TREE UW':'TREE','ARCT UQ':'ARCT','TCS LI':'TCS.IL','TAK UN':'TAK
               '6060':'6060.HK','4477':'4477.T','9923':'9923.HK','ADYEN':'ADYEY',
               'KSPI':'KSPI.IL'}
 
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) \
+            AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36',
+          'Upgrade-Insecure-Requests': '1'}
+
 def getHolding():
     df = pd.DataFrame([], columns=['date','fund','company','ticker','cusip','shares','market value($)','weight(%)'])
     for etf in ark_etf:
-        # s = requests.get(etf['url']).content
-        # print(etf)
-        # df_temp = pd.read_csv(io.StringIO(s.decode('utf-8'))).dropna()
-        df_temp = pd.read_csv(etf['file']).dropna()
+        s = requests.get(etf['url'],headers=headers,cookies={'from-my': 'browser'}).content
+        df_temp = pd.read_csv(io.StringIO(s.decode('utf-8'))).dropna()
         df = df.append(df_temp)
     date = df['date'].values[0]
     date_object = datetime.strptime(date, '%m/%d/%Y').date()
