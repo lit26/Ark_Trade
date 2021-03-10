@@ -15,9 +15,13 @@ print3d_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/THE_3D_PR
 israel_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_ISRAEL_INNOVATIVE_TECHNOLOGY_ETF_IZRL_HOLDINGS.csv"
 
 urls = [arkk_url, arkq_url, arkw_url, arkg_url, arkf_url,print3d_url,israel_url]
-ark_etf = [{'name':'ARKK', 'url':arkk_url},{'name':'ARKQ', 'url':arkq_url},{'name':'ARKW','url':arkw_url},
-           {'name':'ARKG','url':arkg_url},{'name':'ARKF','url':arkf_url},{'name':'PRNT','url':print3d_url},
-          {'name':'IZRL','url':israel_url}]
+ark_etf = [{'name':'ARKK', 'url':arkk_url, 'file': 'ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv'},
+           {'name':'ARKQ', 'url':arkq_url, 'file': 'ARK_GENOMIC_REVOLUTION_MULTISECTOR_ETF_ARKG_HOLDINGS.csv'},
+           {'name':'ARKW', 'url':arkw_url, 'file': 'ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv'},
+           {'name':'ARKG', 'url':arkg_url, 'file': 'ARK_GENOMIC_REVOLUTION_MULTISECTOR_ETF_ARKG_HOLDINGS.csv'},
+           {'name':'ARKF', 'url':arkf_url, 'file': 'ARK_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv'},
+           {'name':'PRNT', 'url':print3d_url, 'file': 'THE_3D_PRINTING_ETF_PRNT_HOLDINGS.csv'},
+          {'name':'IZRL', 'url':israel_url, 'file': 'ARK_ISRAEL_INNOVATIVE_TECHNOLOGY_ETF_IZRL_HOLDINGS.csv'}]
 ticker_dict = {'TREE UW':'TREE','ARCT UQ':'ARCT','TCS LI':'TCS.IL','TAK UN':'TAK',
               '6618':'6618.HK','8473':'8473.T','3690':'3690.HK','4689':'4689.T',
               '6060':'6060.HK','4477':'4477.T','9923':'9923.HK','ADYEN':'ADYEY',
@@ -26,8 +30,10 @@ ticker_dict = {'TREE UW':'TREE','ARCT UQ':'ARCT','TCS LI':'TCS.IL','TAK UN':'TAK
 def getHolding():
     df = pd.DataFrame([], columns=['date','fund','company','ticker','cusip','shares','market value($)','weight(%)'])
     for etf in ark_etf:
-        s = requests.get(etf['url']).content
-        df_temp = pd.read_csv(io.StringIO(s.decode('utf-8'))).dropna()
+        # s = requests.get(etf['url']).content
+        # print(etf)
+        # df_temp = pd.read_csv(io.StringIO(s.decode('utf-8'))).dropna()
+        df_temp = pd.read_csv(etf['file']).dropna()
         df = df.append(df_temp)
     date = df['date'].values[0]
     date_object = datetime.strptime(date, '%m/%d/%Y').date()
