@@ -1,1 +1,1 @@
-{"sharpe": 11.22, "sortino": Infinity, "profit_factor": Infinity, "max_drawdown": 0.0, "risk_return_ratio": 0.71, "win_loss_ratio": NaN, "win_rate": 1.0, "daily_return": [6.3]}
+{"sharpe": 3.19, "sortino": 5.81, "profit_factor": 1.73, "max_drawdown": -0.06, "risk_return_ratio": 0.2, "win_loss_ratio": 0.87, "win_rate": 0.67, "daily_return": [6.3, -5.7, 3.5]}
