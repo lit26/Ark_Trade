@@ -11,6 +11,7 @@ arkq_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_AUTONOMO
 arkw_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv"
 arkg_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_GENOMIC_REVOLUTION_MULTISECTOR_ETF_ARKG_HOLDINGS.csv"
 arkf_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv"
+arkx_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_SPACE_EXPLORATION_&_INNOVATION_ETF_ARKX_HOLDINGS.csv"
 print3d_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/THE_3D_PRINTING_ETF_PRNT_HOLDINGS.csv"
 israel_url = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_ISRAEL_INNOVATIVE_TECHNOLOGY_ETF_IZRL_HOLDINGS.csv"
 
@@ -20,6 +21,7 @@ ark_etf = [{'name':'ARKK', 'url':arkk_url, 'file': 'ARK_INNOVATION_ETF_ARKK_HOLD
            {'name':'ARKW', 'url':arkw_url, 'file': 'ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv'},
            {'name':'ARKG', 'url':arkg_url, 'file': 'ARK_GENOMIC_REVOLUTION_MULTISECTOR_ETF_ARKG_HOLDINGS.csv'},
            {'name':'ARKF', 'url':arkf_url, 'file': 'ARK_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv'},
+           {'name':'ARKX', 'url':arkx_url, 'file': 'ARK_SPACE_EXPLORATION_&_INNOVATION_ETF_ARKX_HOLDINGS.csv'},
            {'name':'PRNT', 'url':print3d_url, 'file': 'THE_3D_PRINTING_ETF_PRNT_HOLDINGS.csv'},
           {'name':'IZRL', 'url':israel_url, 'file': 'ARK_ISRAEL_INNOVATIVE_TECHNOLOGY_ETF_IZRL_HOLDINGS.csv'}]
 ticker_dict = {'TREE UW':'TREE','ARCT UQ':'ARCT','TCS LI':'TCS.IL','TAK UN':'TAK',
