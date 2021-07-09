@@ -1,1 +1,1 @@
-{"sharpe": -1.66, "sortino": -2.03, "profit_factor": 0.76, "max_drawdown": -0.27, "risk_return_ratio": -0.1, "win_loss_ratio": 0.68, "win_rate": 0.53, "daily_return": [7.9, -5.0, -4.7, 5.4, -0.7, -4.1, 0.7, 4.3, 6.2, 3.4, -9.6, 1.7, 2.6, -6.4, -2.1, -15.9, 4.9]}
+{"sharpe": -1.97, "sortino": -2.39, "profit_factor": 0.72, "max_drawdown": -0.27, "risk_return_ratio": -0.12, "win_loss_ratio": 0.72, "win_rate": 0.5, "daily_return": [7.9, -5.0, -4.7, 5.4, -0.7, -4.1, 0.7, 4.3, 6.2, 3.4, -9.6, 1.7, 2.6, -6.4, -2.1, -15.9, 4.9, -2.5]}
