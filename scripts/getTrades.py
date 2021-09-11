@@ -56,6 +56,8 @@ def action(n):
 
 def value_change(x,y, action):
     if action == 'Hold':
+        if x == 0:
+            return 0
         return (y-x)*100/x
     else:
         return None
