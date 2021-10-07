@@ -33,12 +33,20 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) \
             AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36',
           'Upgrade-Insecure-Requests': '1'}
 
+def formatShares(x):
+    return float(''.join(x.split(',')))
+
 def getHolding():
     df = pd.DataFrame([], columns=['date','fund','company','ticker','cusip','shares','market value($)','weight(%)'])
     for etf in ark_etf:
         print(f'Fetching: {etf["name"]}, url: {etf["url"]}')
         s = requests.get(etf['url'],headers=headers,cookies={'from-my': 'browser'}).content
         df_temp = pd.read_csv(io.StringIO(s.decode('utf-8'))).dropna()
+        df_temp['market value($)'] = df_temp['market value ($)']
+        df_temp['weight(%)'] = df_temp['weight (%)']
+        df_temp['market value($)'] = df_temp['market value($)'].apply(lambda x: formatShares(x[1:]))
+        df_temp['shares'] = df_temp['shares'].apply(lambda x: formatShares(x))
+        df_temp = df_temp[['date', 'fund', 'company', 'ticker', 'cusip', 'shares', 'market value($)', 'weight(%)']]
         df = df.append(df_temp)
     date = df['date'].values[0]
     date_object = datetime.strptime(date, '%m/%d/%Y').date()
@@ -96,7 +104,7 @@ def getTrades(currentdate, latestdate, latestfile, df_current):
         df_compare['shares_y'] = df_compare['shares_y'].fillna(0)
         df_compare['market value($)_y'] = df_compare['market value($)_y'].fillna(0)
         df_compare['weight(%)_y'] = df_compare['weight(%)_y'].fillna(0)
-        df_compare['shares'] = df_compare['shares_y'] - df_compare['shares_x']
+        df_compare['shares'] = df_compare['shares_y'].astype(float) - df_compare['shares_x'].astype(float)
         df_compare['action'] = df_compare.apply(lambda x: action(x['shares']), axis=1)
         df_compare['% change'] = df_compare.apply(lambda x: value_change(x['market value($)_x'],
                                                                          x['market value($)_y'],
