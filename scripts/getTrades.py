@@ -45,6 +45,7 @@ def getHolding():
         df_temp['market value($)'] = df_temp['market value ($)']
         df_temp['weight(%)'] = df_temp['weight (%)']
         df_temp['market value($)'] = df_temp['market value($)'].apply(lambda x: formatShares(x[1:]))
+        df['weight(%)'] = df['weight(%)'].apply(lambda x: x[:-1])
         df_temp['shares'] = df_temp['shares'].apply(lambda x: formatShares(x))
         df_temp = df_temp[['date', 'fund', 'company', 'ticker', 'cusip', 'shares', 'market value($)', 'weight(%)']]
         df = df.append(df_temp)
